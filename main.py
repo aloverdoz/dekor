@@ -1,6 +1,7 @@
 import os
 import logging
 import inspect
+from datetime import datetime
 
 
 def logger(old_function):
@@ -8,7 +9,13 @@ def logger(old_function):
 
     def new_function(*args, **kwargs):
         logging.basicConfig(level=logging.INFO, filename="main.log",filemode="w")
-        logging.info(inspect.stack()[1][3])
+        a = (str(old_function).replace('<function test_1.<locals>.', '').split(' at '))
+        print(a)
+        if len(args) > 0:
+            logging.info(f'Вызванная функция: {a[0]} - время вызова функции: {datetime.now()} - аргументы при вызове функции: {kwargs}')
+        else:
+            logging.info(
+                f'Вызванная функция: {a[0]} - время вызова функции: {datetime.now()} - функция вызвана без аргументов')
         result = old_function(*args, **kwargs)
 
         return result
