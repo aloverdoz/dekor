@@ -14,8 +14,9 @@ def logger(old_function):
             logging.info(f'Вызванная функция: {func_name[0]} - время вызова функции: {datetime.now()} - аргументы при вызове функции: {args, kwargs}')
         else:
             logging.info(f'Вызванная функция: {func_name[0]} - время вызова функции: {datetime.now()} - функция вызвана без аргументов')
-        result = old_function(*args, **kwargs)
 
+        result = old_function(*args, **kwargs)
+        logging.info(f'Вызванная функция вернула: {result}')
         return result
     return new_function
 
@@ -51,7 +52,7 @@ def test_1():
     with open(path) as log_file:
         log_file_content = log_file.read()
 
-    #assert 'summator' in log_file_content, 'должно записаться имя функции'
+    assert 'summator' in log_file_content, 'должно записаться имя функции'
     for item in (4.3, 2.2, 6.5):
         logging.info(f"{item}")
         #assert str(item) in log_file_content, f'{item} должен быть записан в файл'
