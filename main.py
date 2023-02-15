@@ -8,13 +8,11 @@ def logger(old_function):
 
     def new_function(*args, **kwargs):
         logging.basicConfig(level=logging.INFO, filename="main.log",filemode="w")
-        a = (str(old_function).replace('<function test_1.<locals>.', '').split(' at '))
-        print(a)
+        func_name = (str(old_function).replace('<function test_1.<locals>.', '').split(' at '))
         if len(args) > 0 or len(kwargs) > 0 :
-            logging.info(f'Вызванная функция: {a[0]} - время вызова функции: {datetime.now()} - аргументы при вызове функции: {args, kwargs}')
+            logging.info(f'Вызванная функция: {func_name[0]} - время вызова функции: {datetime.now()} - аргументы при вызове функции: {args, kwargs}')
         else:
-            logging.info(
-                f'Вызванная функция: {a[0]} - время вызова функции: {datetime.now()} - функция вызвана без аргументов')
+            logging.info(f'Вызванная функция: {func_name[0]} - время вызова функции: {datetime.now()} - функция вызвана без аргументов')
         result = old_function(*args, **kwargs)
 
         return result
